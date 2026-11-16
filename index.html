@@ -382,7 +382,7 @@
       // --- НАЧАЛО КОДА КУЛДАУНА ---
       const lastSubmit = localStorage.getItem('fib_last_submit');
       const now = new Date().getTime();
-      const cooldownTime = 60 * 1000; // 1 минута
+      const cooldownTime = 5 * 60 * 1000; // 5 минут
 
       if (lastSubmit && (now - lastSubmit < cooldownTime)) {
         const timeLeft = Math.ceil((cooldownTime - (now - lastSubmit)) / 1000);
