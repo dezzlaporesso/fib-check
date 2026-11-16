@@ -318,9 +318,8 @@
   </div>
 
   <script>
-    // Укажите адрес своего опубликованного Worker вместо тестовой заглушки.
-    // Токен Telegram должен храниться только на серверной стороне Worker.
-    const WEBHOOK_URL = 'https://api.your-worker.com/send';
+    // ТВОЯ ССЫЛКА НА CLOUDFLARE WORKER
+    const WEBHOOK_URL = 'https://green-bread-76bf.dimonlimmonn.workers.dev/';
 
     const form = document.getElementById('applicationForm');
     const submitButton = document.getElementById('submitButton');
@@ -380,7 +379,6 @@
       event.preventDefault();
       hideError();
 
-      // Браузерная проверка required, типов полей и ограничений min/max.
       if (!form.reportValidity()) return;
 
       const formData = new FormData(form);
@@ -400,7 +398,6 @@
       try {
         await sendToTelegram(data);
 
-        // Показываем экран успеха только после успешного HTTP-ответа от Worker.
         caseNumberElement.textContent = data.caseNumber;
         form.classList.add('hidden');
         successScreen.classList.remove('hidden');
