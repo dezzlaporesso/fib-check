@@ -379,6 +379,18 @@
       event.preventDefault();
       hideError();
 
+      // --- НАЧАЛО КОДА КУЛДАУНА ---
+      const lastSubmit = localStorage.getItem('fib_last_submit');
+      const now = new Date().getTime();
+      const cooldownTime = 60 * 1000; // 1 минута
+
+      if (lastSubmit && (now - lastSubmit < cooldownTime)) {
+        const timeLeft = Math.ceil((cooldownTime - (now - lastSubmit)) / 1000);
+        alert(`Подождите ${timeLeft} сек. перед отправкой новой заявки.`);
+        return; // Останавливаем отправку
+      }
+      // --- КОНЕЦ КОДА КУЛДАУНА ---
+
       if (!form.reportValidity()) return;
 
       const formData = new FormData(form);
@@ -397,6 +409,9 @@
 
       try {
         await sendToTelegram(data);
+
+        // Запоминаем время успешной отправки для кулдауна
+        localStorage.setItem('fib_last_submit', new Date().getTime());
 
         caseNumberElement.textContent = data.caseNumber;
         form.classList.add('hidden');
